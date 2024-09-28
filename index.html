@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*************************************************************************************************/
+
+    const map = new Map(
+        [
+            ["Andrii", 32],
+            ["Igor", 34],
+            ["Vladimir", 34],
+            ["Evgeniy", 32],
+            ["Pavel", 30]
+        ]
+    )
+
+    function getAverageAge (map) {return map.values().reduce((total, amount) => total + amount) / map.size}
+    age = getAverageAge(map)
+    console.log(age)
+
+    map.set("Andrii", 35)
+    console.log(map.get("Andrii"))
+
+    map.delete("Andrii")
+    console.log(map)
+
+    /*************************************************************************************************/
+
+    const set = new Set(["War and Peace", "Ulysses", "Utopia", "Waste Land", "Treasure Island"])
+
+    function addBook(set, title) {
+        if (!set.has(title)) {
+            set.add(title)
+        }
+    }
+    addBook(set, "Wealth of Nations")
+    console.log(set)
+
+    const sortedBooks = Array.from(set).sort()
+    console.log(sortedBooks)
+
+    /*************************************************************************************************/
+
+    function memoize (fn) {
+        const cache = new Map();
+        return function (...args){
+            const key = args.join('_')
+            if (cache.has(key)) {
+                console.log(`Get data from cache ${cache.get(key)}$`)
+                return cache.get(key)
+            }
+
+            const res = fn(...args)
+            cache.set(key, res)
+            console.log(`"Calculated ${cache.get(key)}$` )
+            return res
+        }
+
+    }
+
+    const factorial = function (n) {
+        const res = []
+        let count = n
+        for (let i = 1; i <= n; i++) {
+            res.push(count)
+            count -=1
+        }
+        return res.reduce((total, amount) => total * amount)
+    }
+
+
+    const memoizeFn = memoize(factorial)
+    memoizeFn(20)
+    memoizeFn(20)
+
+    /*************************************************************************************************/
+</script>
+
+</body>
+</html>
